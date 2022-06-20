@@ -6,27 +6,28 @@ It can be used for count words from input text and sort them alphabetically. Res
 
 In this project was used a comb sort. Code below.
 
-
-    int sorting_with_a_comb(vector<string>* words, int count_words) { // function for sorting with a comb
-        // засечь время сортировки
-        int size = count_words;
-        int jump = count_words;
-        bool swapped = true;
-        auto start_time = chrono::high_resolution_clock::now();
-        while (jump > 1 || swapped)
-        {
-            if (jump > 1)
-                jump = (int)(jump / 1.25);
-            swapped = false;
-            for (int i = 0; i + jump < size; i++)
-                if ((*words)[i][0] > (*words)[i + jump][0])
-                    swap((*words)[i], (*words)[i + jump]), swapped = true; // Method swap changed words
+```c++
+        int sorting_with_a_comb(vector<string>* words, int count_words) { // function for sorting with a comb
+            // засечь время сортировки
+            int size = count_words;
+            int jump = count_words;
+            bool swapped = true;
+            auto start_time = chrono::high_resolution_clock::now();
+            while (jump > 1 || swapped)
+            {
+                if (jump > 1)
+                    jump = (int)(jump / 1.25);
+                swapped = false;
+                for (int i = 0; i + jump < size; i++)
+                    if ((*words)[i][0] > (*words)[i + jump][0])
+                        swap((*words)[i], (*words)[i + jump]), swapped = true; // Method swap changed words
+            }
+            auto end_time = chrono::high_resolution_clock::now();
+            // конечное время
+            auto search_time = chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time).count();
+            return search_time;
         }
-        auto end_time = chrono::high_resolution_clock::now();
-        // конечное время
-        auto search_time = chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time).count();
-        return search_time;
-    }
+```
 
 Considering that the quick sort is performed on average for time O(n^2/2^p), tests of this algorithm on 10 different texts showed very good results that you can see in this graph below. It is based on data from analysis files.
 
